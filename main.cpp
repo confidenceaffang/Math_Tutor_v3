@@ -99,8 +99,6 @@ int main() {
                 break; // ends the switch case
             //if the math type is Division
             case Division:
-                correctAnswer = leftNumber;// sets correct answer based on the switch case
-                leftNumber *= rightNumber; // we make leftNum a multiple of rightNum so that we don't get a fraction
                 correctAnswer = leftNumber / rightNumber; // Assigns correct answer to left number / right number
                 operationSymbol = " / "; // assigns the operating symbol to /
                 break; // ends the switch case
@@ -119,22 +117,24 @@ int main() {
             cout << "Congrats! That was correct :)" << endl; // prints out
             number_correct++; // increases the number of correct attempts by 1
             attempts++; // increasing the number of attempts by 1
+            incorrect_number =0;
         } else {
             //if the user answers incorreclty
+            attempts++; // increases the number of attempts by 1
             cout << "Bummer, that was incorrect." << endl; // print out
             incorrect_number++; // increses the number of incorrect attempt by 1
             if (attempts >= MAX_ATTEMPTS) {
                 cout << "Sorry, you are out of attempts." << endl; // if attempts are exhausted
                 cout << "The correct answer was " << correctAnswer << "." << endl; // prints out the correct answer
-                attempts = 1; // Reset attempts after failure
+                attempts = 0; // Reset attempts after failure
                 cout << "Do you want to continue (y=yes | n=no)? "; // asks if the person wants to continue
-                cin >> userInput; // takes in the user's input for the questio
+                cin >> userInput; // takes in the user's input for the question
             } else {
                 //if it's incorrect but there are still more attempts
                 cout << "You have " << MAX_ATTEMPTS - attempts << " attempts left." << endl;
                 // prints out the number of attempts left
             }
-            attempts++; // increases the number of attempts by 1
+
         }
 
         //executes if the number of correct attempt is 3
@@ -148,6 +148,7 @@ int main() {
             // prints the new range of questions
             cout << "Do you want to continue (y=yes | n=no)?\t"; // prints the question asking the person to continue
             cin >> userInput; // takes in the user input if the person wants to continue
+            attempts = 0;// resets the attempts
         }
         //executes if the number of incorrect attemps is 3 and the level is greater than 1
         else if (incorrect_number == 3 && level_number > 1) {
@@ -160,6 +161,7 @@ int main() {
             cout << "The numbers are now between 1 and " << level_range << "." << endl; // prints the new question range
             cout << "Do you want to continue (y=yes | n=no)? "; // asks if the person would like to continue
             cin >> userInput; // takes in the user input for the question above
+            attempts =0; // resets the attempts
         }
     } while (userInput == "yes" || userInput == "y"); // loops as long as the user inputs a yes
 
