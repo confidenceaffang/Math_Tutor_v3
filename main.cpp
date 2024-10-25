@@ -28,17 +28,17 @@ int main() {
     //used the srand fuction to seed time since the development of C++ so that the random numbers generated are not the same
     srand(time(0));
     string userName = "hi"; //creates and initializes a string of the variable userName
-    string userInput = "yes";  //creates and initializes a string of the variable userInput
+    string userInput = "yes"; //creates and initializes a string of the variable userInput
     int level_number = 1; //creates and initializes an integer of the variable level_number
     int level_range = 10; //creates and initializes an integer of the variable level_range
     int number_correct = 0; //creates and initializes an integer for the number of correct entries
     int incorrect_number = 0; //creates and initializes an integer for the number of incorrect entries
     int attempts = 1; //creates and initializes an integer for the number of attempts
     int userAnswer = 0; //creates and initializes an integer for the user's answer
-    int correctAnswer =0; //creates and initializes an integer for the correct answer
+    int correctAnswer = 0; //creates and initializes an integer for the correct answer
     string operationSymbol = "+"; //creates and initializes a string for the operating symbol
     int leftNumber = 0; // creates and initializes an integer for the left number in the question
-    int rightNumber =0; // creates and initializes an integer for the righ tnumber in the question
+    int rightNumber = 0; // creates and initializes an integer for the righ tnumber in the question
     int randommath_type = 0; //creates and initializes an integer for the random math types in the enum function
     int temp = 0; // creates and initializes a temporary integer to be used later on in the code
 
@@ -61,98 +61,111 @@ int main() {
     cout << "***********************************************************" << endl;
     cout << endl;
 
-    cout << "What is your name? ";// prints out a statement asking the user for their name
+    cout << "What is your name? "; // prints out a statement asking the user for their name
     getline(cin, userName); // takes the user's name and assigns it to the varible userName
     // prints out a welcom statement
     cout << endl;
     cout << "Welcome " << userName << " to the silly simple math tutor!" << endl;
 
-  do {
-      leftNumber = rand() % level_range + 1; // sets the left number to a random integer between the limits of 1 and the level's range
-      rightNumber = rand() % level_range + 1; // sets the right number to a random integer between the limits of 1 and the level's range
-      randommath_type = rand() % (Division + 1); // sets the math type to a random math_type in the enum function
+    do {
+        leftNumber = rand() % level_range + 1;
+        // sets the left number to a random integer between the limits of 1 and the level's range
+        rightNumber = rand() % level_range + 1;
+        // sets the right number to a random integer between the limits of 1 and the level's range
+        randommath_type = rand() % (Division + 1); // sets the math type to a random math_type in the enum function
 
-      switch (randommath_type) {//creates a switch for the math type chosen
-          //if the math type chosen is Addition
-          case Addition:
-              correctAnswer = leftNumber + rightNumber; // Assigns correct answer to the sum of left and right numbers
-          operationSymbol = " + "; // Assigns the Operating symbol to +
-          break;// ends the swtich case
-         //if the math type chosen is Subtraction
-          case Subtraction:
-              //swaps the right and left numbers to avoid getting negative result
-              if (leftNumber < rightNumber){
-                  temp = leftNumber;
-                  leftNumber = rightNumber;
-                  rightNumber = temp;
-              };
-          correctAnswer = leftNumber - rightNumber; // assigns correct answer to the difference between
-          operationSymbol = " - "; // Assigns the Operating symbol to -
-          break; // ends the switch case
-          // If the math type is Multiplication
-          case Multiplication:
-          correctAnswer = leftNumber * rightNumber; // assigns correct answer to the product of both numbers
-          operationSymbol = " * "; // Assigns the Operating symbol to *
-          break; // ends the switch case
-          //if the math type is Division
-          case Division:
-              // if the righnumber is greater than the other number we increase the left number to avoid fractions
-          if(rightNumber> leftNumber) {
-              leftNumber *= rightNumber;
-          }
-          correctAnswer = leftNumber / rightNumber;// Assigns correct answer to left number / right number
-          operationSymbol = " / "; // assigns the operating symbol to /
-          break;// ends the switch case
-          // If the math type is invalid
-          default:
-              cout << "invalid input" << endl;
-          break;
-      }
+        switch (randommath_type) {
+            //creates a switch for the math type chosen
+            //if the math type chosen is Addition
+            case Addition:
+                correctAnswer = leftNumber + rightNumber; // Assigns correct answer to the sum of left and right numbers
+                operationSymbol = " + "; // Assigns the Operating symbol to +
+                break; // ends the swtich case
+            //if the math type chosen is Subtraction
+            case Subtraction:
+                //swaps the right and left numbers to avoid getting negative result
+                if (leftNumber < rightNumber) {
+                    temp = leftNumber;
+                    leftNumber = rightNumber;
+                    rightNumber = temp;
+                };
+                correctAnswer = leftNumber - rightNumber; // assigns correct answer to the difference between
+                operationSymbol = " - "; // Assigns the Operating symbol to -
+                break; // ends the switch case
+            // If the math type is Multiplication
+            case Multiplication:
+                correctAnswer = leftNumber * rightNumber; // assigns correct answer to the product of both numbers
+                operationSymbol = " * "; // Assigns the Operating symbol to *
+                break; // ends the switch case
+            //if the math type is Division
+            case Division:
+                // if the righnumber is greater than the other number we increase the left number to avoid fractions
+                if (rightNumber > leftNumber) {
+                    leftNumber *= rightNumber;
+                }
+                correctAnswer = leftNumber / rightNumber; // Assigns correct answer to left number / right number
+                operationSymbol = " / "; // assigns the operating symbol to /
+                break; // ends the switch case
+            // If the math type is invalid
+            default:
+                cout << "invalid input" << endl;
+                break; // ends the default block
+        }
+        // prints out he question to the user showing the level
+        cout << "[Level #" << level_number << "]\t" << userName << ", what does " << leftNumber << operationSymbol <<
+                rightNumber << " = ";
+        cin >> userAnswer; // takes in the user's answe to the quesion
 
-      cout << "[Level #" << level_number << "]\t" << userName << ", what does " << leftNumber << operationSymbol << rightNumber << " = ";
-      cin >> userAnswer;
+        //if the user answers correctly
+        if (userAnswer == correctAnswer) {
+            cout << "Congrats! That was correct :)" << endl; // prints out
+            number_correct++; // increases the number of correct attempts by 1
+            attempts++; // increasing the number of attempts by 1
+        } else {
+            //if the user answers incorreclty
+            cout << "Bummer, that was incorrect." << endl; // print out
+            incorrect_number++; // increses the number of incorrect attempt by 1
+            if (attempts >= MAX_ATTEMPTS) {
+                cout << "Sorry, you are out of attempts." << endl; // if attempts are exhausted
+                cout << "The correct answer was " << correctAnswer << "." << endl; // prints out the correct answer
+                attempts = 1; // Reset attempts after failure
+                cout << "Do you want to continue (y=yes | n=no)? "; // asks if the person wants to continue
+                cin >> userInput; // takes in the user's input for the questio
+            } else {
+                //if it's incorrect but there are still more attempts
+                cout << "You have " << MAX_ATTEMPTS - attempts << " attempts left." << endl;
+                // prints out the number of attempts left
+            }
+            attempts++; // increases the number of attempts by 1
+        }
 
-      if (userAnswer == correctAnswer) {
-          cout << "Congrats! That was correct :)" << endl;
-          number_correct++;
-          attempts++;
-          incorrect_number = 0;
-      } else {
-          cout << "Bummer, that was incorrect." << endl;
-          incorrect_number++;
-          if (attempts >= MAX_ATTEMPTS) {
-              cout << "Sorry, you are out of attempts." << endl;
-              cout << "The correct answer was " << correctAnswer << "." << endl;
-              attempts = 1;  // Reset attempts after failure
-              cout << "Do you want to continue (y=yes | n=no)? ";
-              cin >> userInput;
-          } else {
-              cout << "You have " << MAX_ATTEMPTS - attempts << " attempts left." << endl;
-          }
-          attempts++;
-      }
+        //executes if the number of correct attempt is 3
+        if (number_correct == 3) {
+            level_number++; // increases the level by 1
+            level_range += LEVEL_RANGE_CHANGE; // increase the range of question  by the constant value of 10
+            number_correct = 0; // resets the number of corrects attempt to 0
+            incorrect_number = 0; // resets the number of incorrect attempts also to 0
+            cout << "WoHoo - Levelling up to " << level_number << endl; // prints a levelling up statement
+            cout << "The numbers are now between 1 and " << level_range << "." << endl;
+            // prints the new range of questions
+            cout << "Do you want to continue (y=yes | n=no)?\t"; // prints the question asking the person to continue
+            cin >> userInput; // takes in the user input if the person wants to continue
+        }
+        //executes if the number of incorrect attemps is 3 and the level is greater than 1
+        else if (incorrect_number == 3 && level_number > 1) {
+            level_number--; // decrease the level by 1
+            level_range -= LEVEL_RANGE_CHANGE; // decreases the range of question  by the constant value of 10
+            incorrect_number = 0; // resets the number of incorrect attempts to 0
+            number_correct = 0; // resets the number of corrects attempts to 0
+            cout << "Sorry, but you're leveling down to " << level_number << "." << endl;
+            // prints the levelling down statement
+            cout << "The numbers are now between 1 and " << level_range << "." << endl; // prints the new question range
+            cout << "Do you want to continue (y=yes | n=no)? "; // asks if the person would like to continue
+            cin >> userInput; // takes in the user input for the question above
+        }
+    } while (userInput == "yes" || userInput == "y"); // loops as long as the user inputs a yes
 
-  if (number_correct == 3) {
-      level_number++;
-      level_range += LEVEL_RANGE_CHANGE;
-      number_correct = 0;
-      incorrect_number = 0;
-      cout << "WoHoo - Levelling up to " << level_number << endl;
-      cout << "The numbers are now between 1 and " << level_range << "." << endl;
-      cout << "Do you want to continue (y=yes | n=no)? ";
-      cin >> userInput;
-  } else if (incorrect_number == 3 && level_number > 1) {
-      level_number--;
-      level_range -= LEVEL_RANGE_CHANGE;
-      incorrect_number = 0;
-      number_correct = 0;
-      cout << "Sorry, but you're leveling down to " << level_number << "." << endl;
-      cout << "The numbers are now between 1 and " << level_range << "." << endl;
-      cout << "Do you want to continue (y=yes | n=no)? ";
-      cin >> userInput;
-  }
-  } while (userInput == "yes" || userInput == "y");
+    cout << "Keep calm and do math!" << endl; // prints out when the user input anything aside a yes
 
-    cout << "Keep calm and do math!" << endl;
-    return 0;
+    return 0; // exits with a program status code 0
 }
