@@ -1,9 +1,9 @@
 /****************************************************************************
-Program:     MathTutorV2
+Program:     MathTutorV3
 Programmers:Confidence Affang
-Date:        8/30/2024
+Date:        10/24/2024
 Description: A simple silly math tutor program. It asks the user for their name,
-has an enum for the differnt math types, gives the user 3 attempts max for each round
+has an enum for the different math types, gives the user 3 attempts max for each round
 it also increase the range of questions being asked by a constant value of 10 when levelling up.
 If the person gets 3 correct the person moves the next level and increases the range but if the person
 gets 3 incorrect the person moves down a level if the person is currently at a level greater than 1.
