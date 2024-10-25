@@ -86,17 +86,26 @@ int main() {
                   leftNumber = rightNumber;
                   rightNumber = temp;
               };
-          correctAnswer = leftNumber - rightNumber; // assigns correct answer to the differenc beteween
+          correctAnswer = leftNumber - rightNumber; // assigns correct answer to the difference between
           operationSymbol = " - "; // Assigns the Operating symbol to -
           break; // ends the switch case
           // If the math type is Multiplication
           case Multiplication:
           correctAnswer = leftNumber * rightNumber; // assigns correct answer to the product of both numbers
-          operationSymbol = " * ";
-          break;
+          operationSymbol = " * "; // Assigns the Operating symbol to *
+          break; // ends the switch case
+          //if the math type is Division
           case Division:
-          correctAnswer = leftNumber / rightNumber;
-          operationSymbol = " / ";
+              // if the righnumber is greater than the other number we increase the left number to avoid fractions
+          if(rightNumber> leftNumber) {
+              leftNumber *= rightNumber;
+          }
+          correctAnswer = leftNumber / rightNumber;// Assigns correct answer to left number / right number
+          operationSymbol = " / "; // assigns the operating symbol to /
+          break;// ends the switch case
+          // If the math type is invalid
+          default:
+              cout << "invalid input" << endl;
           break;
       }
 
