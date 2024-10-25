@@ -99,10 +99,8 @@ int main() {
                 break; // ends the switch case
             //if the math type is Division
             case Division:
-                // if the righnumber is greater than the other number we increase the left number to avoid fractions
-                if (rightNumber > leftNumber) {
-                    leftNumber *= rightNumber;
-                }
+                correctAnswer = leftNumber;// sets correct answer based on the switch case
+                leftNumber *= rightNumber; // we make leftNum a multiple of rightNum so that we don't get a fraction
                 correctAnswer = leftNumber / rightNumber; // Assigns correct answer to left number / right number
                 operationSymbol = " / "; // assigns the operating symbol to /
                 break; // ends the switch case
