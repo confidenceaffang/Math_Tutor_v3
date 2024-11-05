@@ -107,61 +107,66 @@ int main() {
                 cout << "invalid input" << endl;
                 break; // ends the default block
         }
-        // prints out he question to the user showing the level
-        cout << "[Level #" << level_number << "]\t" << userName << ", what does " << leftNumber << operationSymbol <<
-                rightNumber << " = ";
-        cin >> userAnswer; // takes in the user's answe to the quesion
+      // Loop to ask the question and check answer up to MAX_ATTEMPTS
+        for (attempts = 0; attempts < MAX_ATTEMPTS; attempts++) {
+            // Prints out the question to the user showing the level
+            cout << "[Level #" << level_number << "]\t" << userName << ", what does "
+                 << leftNumber << " " << operationSymbol << " " << rightNumber << " = ";
+            cin >> userAnswer; // Takes in the user's answer to the question
 
-        //if the user answers correctly
-        if (userAnswer == correctAnswer) {
-            cout << "Congrats! That was correct :)" << endl; // prints out
-            number_correct++; // increases the number of correct attempts by 1
-            attempts++; // increasing the number of attempts by 1
-            incorrect_number =0;
-        } else {
-            //if the user answers incorreclty
-            attempts++; // increases the number of attempts by 1
-            cout << "Bummer, that was incorrect." << endl; // print out
-            incorrect_number++; // increses the number of incorrect attempt by 1
-            if (attempts >= MAX_ATTEMPTS) {
-                cout << "Sorry, you are out of attempts." << endl; // if attempts are exhausted
-                cout << "The correct answer was " << correctAnswer << "." << endl; // prints out the correct answer
-                attempts = 0; // Reset attempts after failure
-                cout << "Do you want to continue (y=yes | n=no)? "; // asks if the person wants to continue
-                cin >> userInput; // takes in the user's input for the question
+            // If the user answers correctly
+            if (userAnswer == correctAnswer) {
+                cout << "Congrats! That was correct :)" << endl; // Prints out
+                number_correct++; // Increases the number of correct attempts by 1
+                incorrect_number = 0; // Resets incorrect attempt counter to 0
+                break; // Exit the loop if the answer is correct
             } else {
-                //if it's incorrect but there are still more attempts
-                cout << "You have " << MAX_ATTEMPTS - attempts << " attempts left." << endl;
-                // prints out the number of attempts left
+                // If the user answers incorrectly
+                cout << "Bummer, that was incorrect." << endl; // Prints out
+                incorrect_number++; // Increases the number of incorrect attempts by 1
+
+                // If attempts are exhausted
+                if (attempts == MAX_ATTEMPTS - 1) {
+                    cout << "Sorry, you are out of attempts." << endl; // Attempts exhausted message
+                    cout << "The correct answer was " << correctAnswer << "." << endl; // Prints the correct answer
+                } else {
+                    // If it's incorrect but there are still more attempts
+                    cout << "You have " << (MAX_ATTEMPTS - attempts - 1) << " attempts left." << endl;
+                    // Prints out the number of attempts left
+                }
             }
-
         }
 
-        //executes if the number of correct attempt is 3
+        // Executes if the number of correct attempts is 3
         if (number_correct == 3) {
-            level_number++; // increases the level by 1
-            level_range += LEVEL_RANGE_CHANGE; // increase the range of question  by the constant value of 10
-            number_correct = 0; // resets the number of corrects attempt to 0
-            incorrect_number = 0; // resets the number of incorrect attempts also to 0
-            cout << "WoHoo - Levelling up to " << level_number << endl; // prints a levelling up statement
+            level_number++; // Increases the level by 1
+            level_range += LEVEL_RANGE_CHANGE; // Increase the range of question by the constant value of 10
+            number_correct = 0; // Resets the number of correct attempts to 0
+            incorrect_number = 0; // Resets the number of incorrect attempts to 0
+            cout << "WoHoo - Levelling up to " << level_number << endl; // Prints a leveling-up statement
             cout << "The numbers are now between 1 and " << level_range << "." << endl;
-            // prints the new range of questions
-            cout << "Do you want to continue (y=yes | n=no)?\t"; // prints the question asking the person to continue
-            cin >> userInput; // takes in the user input if the person wants to continue
-            attempts = 0;// resets the attempts
+            // Prints the new range of questions
+            cout << "Do you want to continue (y=yes | n=no)? "; // Prints the question asking the person to continue
+            cin >> userInput; // Takes in the user input if the person wants to continue
+            if (userInput == "no"|| userInput == "n") {
+                break;
+            } // Exit the game if the user chooses 'no'
         }
-        //executes if the number of incorrect attemps is 3 and the level is greater than 1
+        // Executes if the number of incorrect attempts is 3 and the level is greater than 1
         else if (incorrect_number == 3 && level_number > 1) {
-            level_number--; // decrease the level by 1
-            level_range -= LEVEL_RANGE_CHANGE; // decreases the range of question  by the constant value of 10
-            incorrect_number = 0; // resets the number of incorrect attempts to 0
-            number_correct = 0; // resets the number of corrects attempts to 0
+            level_number--; // Decreases the level by 1
+            level_range -= LEVEL_RANGE_CHANGE; // Decreases the range of question by the constant value of 10
+            incorrect_number = 0; // Resets the number of incorrect attempts to 0
+            number_correct = 0; // Resets the number of correct attempts to 0
             cout << "Sorry, but you're leveling down to " << level_number << "." << endl;
-            // prints the levelling down statement
-            cout << "The numbers are now between 1 and " << level_range << "." << endl; // prints the new question range
-            cout << "Do you want to continue (y=yes | n=no)? "; // asks if the person would like to continue
-            cin >> userInput; // takes in the user input for the question above
-            attempts =0; // resets the attempts
+            // Prints the leveling-down statement
+            cout << "The numbers are now between 1 and " << level_range << "." << endl; // Prints the new question range
+            cout << "Do you want to continue (y=yes | n=no)? "; // Asks if the person would like to continue
+            cin >> userInput; // Takes in the user input for the question above
+            attempts = 0;
+            if (userInput == "no"|| userInput == "n") {
+                break;
+            } // Exit the game if the user chooses 'no'
         }
     } while (userInput == "yes" || userInput == "y"); // loops as long as the user inputs a yes
 
