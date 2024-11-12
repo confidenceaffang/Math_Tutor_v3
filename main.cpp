@@ -178,5 +178,6 @@ int main()
         }
 
     } while (userInput == "y" || userInput == "yes");
+    cout << "Keep calm and do math" << endl;
     return 0;
 }
